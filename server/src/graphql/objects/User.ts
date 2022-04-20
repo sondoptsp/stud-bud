@@ -7,7 +7,6 @@ export const User = objectType({
     t.nonNull.id("id");
     t.nonNull.string("username");
     t.nonNull.string("email");
-    t.nonNull.string("password");
     t.nullable.field("profile", {
       type: Profile,
       resolve: async (root, _args, ctx) => {

@@ -9,9 +9,10 @@ import {
 import dotenv from "dotenv";
 import { schema } from "./schema";
 import connectRedis from "connect-redis";
-const redis = require("redis");
+import Redis from "ioredis";
 import session from "express-session";
 import { COOKIE_NAME, __prod__ } from "./constants";
+import { createContext } from "./context";
 
 dotenv.config();
 
@@ -33,9 +34,11 @@ const startServer = async () => {
     })
   );
 
+  const redisClient = new Redis({
+    host: "127.0.0.1",
+    port: 6379,
+  });
   const RedisStore = connectRedis(session);
-
-  const redisClient = redis.createClient();
 
   app.use(
     session({
@@ -55,6 +58,7 @@ const startServer = async () => {
 
   const apolloServer = new ApolloServer({
     schema,
+    context: createContext,
     plugins: [
       ApolloServerPluginDrainHttpServer({ httpServer }),
       ApolloServerPluginLandingPageGraphQLPlayground(),

@@ -159,9 +159,15 @@ export const LogoutMutation = mutationField("logout", {
   type: nonNull(AuthOutput),
   resolve: async (_root, _args, ctx) => {
     try {
-      ctx.req.session.destroy((err) => {
-        ctx.res.clearCookie(COOKIE_NAME);
-        if (err) console.log("Log out error", err);
+      await new Promise<void>((resolve) => {
+        ctx.req.session.destroy((err) => {
+          ctx.res.clearCookie(COOKIE_NAME);
+          if (err) {
+            resolve();
+            console.log("Log out error", err);
+          }
+          resolve();
+        });
       });
 
       return {
