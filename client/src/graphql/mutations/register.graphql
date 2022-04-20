@@ -1,0 +1,18 @@
+mutation register($input: RegisterInput!) {
+  register(input: $input) {
+    IOutput {
+      code
+      success
+      message
+    }
+    User {
+      id
+      username
+      email
+    }
+    ErrorFieldOutput {
+      field
+      message
+    }
+  }
+}

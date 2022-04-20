@@ -9,9 +9,9 @@ export interface Context {
   prisma: PrismaClient;
 }
 
-export async function createContext(
+export const createContext = async (
   request: ExpressContext
-): Promise<Partial<Context>> {
+): Promise<Partial<Context>> => {
   const context: Context = {
     ...request,
     req: request.req,
@@ -20,4 +20,4 @@ export async function createContext(
   };
 
   return context;
-}
+};

@@ -1,4 +1,4 @@
-import { nullable, objectType } from "nexus";
+import { objectType } from "nexus";
 import { User } from "../objects";
 import { ErrorFieldOutput } from "./ErrorFieldOutput";
 import { IOutput } from "./IOutput";
@@ -10,9 +10,9 @@ export const AuthOutput = objectType({
       type: IOutput,
     });
     t.nullable.field("User", {
-      type: nullable(User),
+      type: User,
     });
-    t.nullable.list.nullable.field("ErrorFieldOutput", {
+    t.nullable.list.nonNull.field("ErrorFieldOutput", {
       type: ErrorFieldOutput,
     });
   },

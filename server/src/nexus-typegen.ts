@@ -38,13 +38,13 @@ export interface NexusGenScalars {
 
 export interface NexusGenObjects {
   AuthOutput: { // root type
-    ErrorFieldOutput?: Array<NexusGenRootTypes['ErrorFieldOutput'] | null> | null; // [ErrorFieldOutput]
+    ErrorFieldOutput?: NexusGenRootTypes['ErrorFieldOutput'][] | null; // [ErrorFieldOutput!]
     IOutput: NexusGenRootTypes['IOutput']; // IOutput!
     User?: NexusGenRootTypes['User'] | null; // User
   }
   ErrorFieldOutput: { // root type
-    field?: string | null; // String
-    message?: string | null; // String
+    field: string; // String!
+    message: string; // String!
   }
   IOutput: { // root type
     code: number; // Int!
@@ -85,13 +85,13 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
   AuthOutput: { // field return type
-    ErrorFieldOutput: Array<NexusGenRootTypes['ErrorFieldOutput'] | null> | null; // [ErrorFieldOutput]
+    ErrorFieldOutput: NexusGenRootTypes['ErrorFieldOutput'][] | null; // [ErrorFieldOutput!]
     IOutput: NexusGenRootTypes['IOutput']; // IOutput!
     User: NexusGenRootTypes['User'] | null; // User
   }
   ErrorFieldOutput: { // field return type
-    field: string | null; // String
-    message: string | null; // String
+    field: string; // String!
+    message: string; // String!
   }
   IOutput: { // field return type
     code: number; // Int!

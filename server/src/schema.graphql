@@ -3,14 +3,14 @@
 
 
 type AuthOutput {
-  ErrorFieldOutput: [ErrorFieldOutput]
+  ErrorFieldOutput: [ErrorFieldOutput!]
   IOutput: IOutput!
   User: User
 }
 
 type ErrorFieldOutput {
-  field: String
-  message: String
+  field: String!
+  message: String!
 }
 
 type IOutput {
