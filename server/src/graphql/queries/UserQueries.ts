@@ -10,6 +10,9 @@ export const getUserQuery = queryField("getUser", {
       where: {
         id: userId,
       },
+      include: {
+        profile: true,
+      },
     });
   },
 });

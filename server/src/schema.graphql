@@ -8,6 +8,15 @@ type AuthOutput {
   User: User
 }
 
+input CreateInterestInput {
+  interest_name: String!
+}
+
+input CreateProfileInput {
+  profile_bio: String!
+  profile_interest: CreateInterestInput!
+}
+
 type ErrorFieldOutput {
   field: String!
   message: String!
@@ -20,10 +29,14 @@ type IOutput {
 }
 
 type Interest {
-  description: String
   id: ID!
-  name: String
-  profileInterests: [ProfileInterest!]!
+  interest_name: String
+  profile_interests: [ProfileInterest!]!
+}
+
+type InterestOutput {
+  IOutput: IOutput!
+  Interest: Interest
 }
 
 input LoginInput {
@@ -32,15 +45,17 @@ input LoginInput {
 }
 
 type Mutation {
+  createInterest(input: CreateInterestInput!, where: ProfileWhereUniqueInput!): InterestOutput
+  createProfile(input: CreateProfileInput!): ProfileOutput
   login(input: LoginInput!): AuthOutput!
   logout: AuthOutput!
   register(input: RegisterInput!): AuthOutput!
 }
 
 type Profile {
-  bio: String
   id: ID!
-  profileInterests: [ProfileInterest!]!
+  profile_bio: String
+  profile_interests: [ProfileInterest!]!
 }
 
 type ProfileInterest {
@@ -50,7 +65,17 @@ type ProfileInterest {
   profile_id: ID!
 }
 
+type ProfileOutput {
+  IOutput: IOutput!
+  Profile: Profile
+}
+
+input ProfileWhereUniqueInput {
+  profile_id: ID!
+}
+
 type Query {
+  getProfile(where: ProfileWhereUniqueInput!): Profile
   getUser: User
 }
 

@@ -5,9 +5,8 @@ export const Interest = objectType({
   name: "Interest",
   definition(t) {
     t.nonNull.id("id");
-    t.string("name");
-    t.nullable.string("description");
-    t.nonNull.list.nonNull.field("profileInterests", {
+    t.string("interest_name");
+    t.nonNull.list.nonNull.field("profile_interests", {
       type: ProfileInterest,
       resolve: async (root, _args, ctx) => {
         return await ctx.prisma.interest

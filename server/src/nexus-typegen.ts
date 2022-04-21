@@ -14,9 +14,19 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  CreateInterestInput: { // input type
+    interest_name: string; // String!
+  }
+  CreateProfileInput: { // input type
+    profile_bio: string; // String!
+    profile_interest: NexusGenInputs['CreateInterestInput']; // CreateInterestInput!
+  }
   LoginInput: { // input type
     email: string; // String!
     password: string; // String!
+  }
+  ProfileWhereUniqueInput: { // input type
+    profile_id: string; // ID!
   }
   RegisterInput: { // input type
     email: string; // String!
@@ -52,18 +62,25 @@ export interface NexusGenObjects {
     success: boolean; // Boolean!
   }
   Interest: { // root type
-    description?: string | null; // String
     id: string; // ID!
-    name?: string | null; // String
+    interest_name?: string | null; // String
+  }
+  InterestOutput: { // root type
+    IOutput: NexusGenRootTypes['IOutput']; // IOutput!
+    Interest?: NexusGenRootTypes['Interest'] | null; // Interest
   }
   Mutation: {};
   Profile: { // root type
-    bio?: string | null; // String
     id: string; // ID!
+    profile_bio?: string | null; // String
   }
   ProfileInterest: { // root type
     interest_id: string; // ID!
     profile_id: string; // ID!
+  }
+  ProfileOutput: { // root type
+    IOutput: NexusGenRootTypes['IOutput']; // IOutput!
+    Profile?: NexusGenRootTypes['Profile'] | null; // Profile
   }
   Query: {};
   User: { // root type
@@ -99,20 +116,25 @@ export interface NexusGenFieldTypes {
     success: boolean; // Boolean!
   }
   Interest: { // field return type
-    description: string | null; // String
     id: string; // ID!
-    name: string | null; // String
-    profileInterests: NexusGenRootTypes['ProfileInterest'][]; // [ProfileInterest!]!
+    interest_name: string | null; // String
+    profile_interests: NexusGenRootTypes['ProfileInterest'][]; // [ProfileInterest!]!
+  }
+  InterestOutput: { // field return type
+    IOutput: NexusGenRootTypes['IOutput']; // IOutput!
+    Interest: NexusGenRootTypes['Interest'] | null; // Interest
   }
   Mutation: { // field return type
+    createInterest: NexusGenRootTypes['InterestOutput'] | null; // InterestOutput
+    createProfile: NexusGenRootTypes['ProfileOutput'] | null; // ProfileOutput
     login: NexusGenRootTypes['AuthOutput']; // AuthOutput!
     logout: NexusGenRootTypes['AuthOutput']; // AuthOutput!
     register: NexusGenRootTypes['AuthOutput']; // AuthOutput!
   }
   Profile: { // field return type
-    bio: string | null; // String
     id: string; // ID!
-    profileInterests: NexusGenRootTypes['ProfileInterest'][]; // [ProfileInterest!]!
+    profile_bio: string | null; // String
+    profile_interests: NexusGenRootTypes['ProfileInterest'][]; // [ProfileInterest!]!
   }
   ProfileInterest: { // field return type
     interest: NexusGenRootTypes['Interest']; // Interest!
@@ -120,7 +142,12 @@ export interface NexusGenFieldTypes {
     profile: NexusGenRootTypes['Profile']; // Profile!
     profile_id: string; // ID!
   }
+  ProfileOutput: { // field return type
+    IOutput: NexusGenRootTypes['IOutput']; // IOutput!
+    Profile: NexusGenRootTypes['Profile'] | null; // Profile
+  }
   Query: { // field return type
+    getProfile: NexusGenRootTypes['Profile'] | null; // Profile
     getUser: NexusGenRootTypes['User'] | null; // User
   }
   User: { // field return type
@@ -147,20 +174,25 @@ export interface NexusGenFieldTypeNames {
     success: 'Boolean'
   }
   Interest: { // field return type name
-    description: 'String'
     id: 'ID'
-    name: 'String'
-    profileInterests: 'ProfileInterest'
+    interest_name: 'String'
+    profile_interests: 'ProfileInterest'
+  }
+  InterestOutput: { // field return type name
+    IOutput: 'IOutput'
+    Interest: 'Interest'
   }
   Mutation: { // field return type name
+    createInterest: 'InterestOutput'
+    createProfile: 'ProfileOutput'
     login: 'AuthOutput'
     logout: 'AuthOutput'
     register: 'AuthOutput'
   }
   Profile: { // field return type name
-    bio: 'String'
     id: 'ID'
-    profileInterests: 'ProfileInterest'
+    profile_bio: 'String'
+    profile_interests: 'ProfileInterest'
   }
   ProfileInterest: { // field return type name
     interest: 'Interest'
@@ -168,7 +200,12 @@ export interface NexusGenFieldTypeNames {
     profile: 'Profile'
     profile_id: 'ID'
   }
+  ProfileOutput: { // field return type name
+    IOutput: 'IOutput'
+    Profile: 'Profile'
+  }
   Query: { // field return type name
+    getProfile: 'Profile'
     getUser: 'User'
   }
   User: { // field return type name
@@ -181,11 +218,23 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    createInterest: { // args
+      input: NexusGenInputs['CreateInterestInput']; // CreateInterestInput!
+      where: NexusGenInputs['ProfileWhereUniqueInput']; // ProfileWhereUniqueInput!
+    }
+    createProfile: { // args
+      input: NexusGenInputs['CreateProfileInput']; // CreateProfileInput!
+    }
     login: { // args
       input: NexusGenInputs['LoginInput']; // LoginInput!
     }
     register: { // args
       input: NexusGenInputs['RegisterInput']; // RegisterInput!
+    }
+  }
+  Query: {
+    getProfile: { // args
+      where: NexusGenInputs['ProfileWhereUniqueInput']; // ProfileWhereUniqueInput!
     }
   }
 }
